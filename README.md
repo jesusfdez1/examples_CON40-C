@@ -8,14 +8,14 @@ Este repositorio contiene implementaciones prácticas de la regla de seguridad *
 
 En programación concurrente, las operaciones atómicas proporcionan garantías de atomicidad para operaciones individuales. Sin embargo, cuando se realizan múltiples operaciones atómicas de forma secuencial para completar una tarea lógica única, el conjunto de operaciones no es atómico. Esto crea una ventana temporal donde otros hilos pueden interferir, causando inconsistencias en los datos compartidos.
 
-### Vulnerabilidades
+### Problemas
 La violación de CON40-C puede resultar en:
 - **Actualizaciones perdidas**: Actualizaciones perdidas cuando múltiples hilos leen el mismo valor antes de escribir
 - **Condiciones de carrera**: El resultado depende del orden de ejecución de los hilos
 - **Inconsistencia de datos**: Inconsistencias en el estado de las variables compartidas
 - **Comportamiento no determinista**: Comportamiento no determinista que dificulta la depuración
 
-## Estructura del Repositorio
+## Estructura del repositorio
 
 ```
 examples_CON40-C/
@@ -35,13 +35,13 @@ examples_CON40-C/
     └── Makefile
 ```
 
-## Requisitos del Sistema
+## Requisitos del sistema
 
 - **Compilador**: GCC 4.9+ o Clang 3.1+ con soporte para C11
 - **Make**: GNU Make o compatible
 - **Sistema Operativo**: Linux/Unix, Windows (MinGW, MSYS2, WSL), macOS
 
-## Instrucciones de Compilación
+## Instrucciones de compilación
 
 ```bash
 # Compilar un ejemplo
@@ -60,10 +60,4 @@ make run
 make clean
 ```
 
-## Referencias
-
-
-- Herlihy, M., & Shavit, N. (2012). *The Art of Multiprocessor Programming*. Morgan Kaufmann.
-- Williams, A. (2019). *C++ Concurrency in Action* (2nd ed.). Manning Publications.
-- Butenhof, D. R. (1997). *Programming with POSIX Threads*. Addison-Wesley.
 
