@@ -16,19 +16,35 @@ static atomic_int counter = ATOMIC_VAR_INIT(0);
 #define NUM_THREADS 5
 #define INCREMENTS_PER_THREAD 10000
 
+/**
+ * Initializes the atomic counter to zero.
+ * This function should be called before any thread operations begin.
+ */
 void init_counter(void) {
   atomic_init(&counter, 0);
 }
 
+/**
+ * Increments the counter atomically using the ++ operator.
+ * The ++ operator on atomic variables is guaranteed to be atomic.
+ */
 void increment_counter(void) {
   // Atomic increment operator
   counter++;
 }
 
+/**
+ * Returns the current value of the atomic counter.
+ * Uses atomic_load to ensure thread-safe reading.
+ */
 int get_counter(void) {
   return atomic_load(&counter);
 }
 
+/**
+ * Thread function that repeatedly calls increment_counter.
+ * Each thread performs INCREMENTS_PER_THREAD increment operations.
+ */
 void* thread_function(void* arg) {
   int thread_id = *(int*)arg;
   

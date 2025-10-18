@@ -17,21 +17,37 @@ static atomic_int toggle_count = ATOMIC_VAR_INIT(0);
 
 #define NUM_THREADS 10
 #define TOGGLES_PER_THREAD 1000
-  
+
+/**
+ * Initializes the atomic flag to false and resets the toggle counter.
+ * This function should be called before any thread operations begin.
+ */
 void init_flag(void) {
   atomic_init(&flag, false);
   atomic_init(&toggle_count, 0);
 }
-  
+
+/**
+ * Toggles the boolean flag value atomically using the XOR operator.
+ * The ^= operator on atomic variables is guaranteed to be atomic.
+ */
 void toggle_flag(void) {
   flag ^= 1;  // Atomic XOR operation
   atomic_fetch_add(&toggle_count, 1);
 }
-    
+
+/**
+ * Returns the current value of the atomic flag.
+ * Uses atomic_load to ensure thread-safe reading.
+ */
 bool get_flag(void) {
   return flag;
 }
 
+/**
+ * Thread function that repeatedly calls toggle_flag.
+ * Each thread performs TOGGLES_PER_THREAD toggle operations.
+ */
 void* thread_function(void* arg) {
   (void)arg;  // Unused parameter
   

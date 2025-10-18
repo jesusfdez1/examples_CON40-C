@@ -1,62 +1,60 @@
 # CON40-C: Do not refer to an atomic variable twice in an expression
 
+This repository contains practical implementations of the **CON40-C** security rule from the CERT C Coding Standard. The rule states that operations on shared atomic variables should not be performed in isolation, as this can lead to race conditions in multithreaded environments.
 
-Este repositorio contiene implementaciones prácticas de la regla de seguridad **CON40-C** del estándar CERT C Coding Standard. La regla establece que no se deben realizar operaciones sobre variables atómicas compartidas de forma aislada, ya que esto puede conducir a condiciones de carrera en entornos multihilo.
+## Context
 
-## Contexto 
+In concurrent programming, atomic operations provide atomicity guarantees for individual operations. However, when multiple atomic operations are performed sequentially to complete a single logical task, the set of operations is not atomic. This creates a time window where other threads can interfere, causing inconsistencies in shared data.
 
+### Problems
+Violation of CON40-C can result in:
+- **Lost updates**: Lost updates when multiple threads read the same value before writing
+- **Race conditions**: The result depends on the execution order of threads
+- **Data inconsistency**: Inconsistencies in the state of shared variables
+- **Non-deterministic behavior**: Non-deterministic behavior that makes debugging difficult
 
-En programación concurrente, las operaciones atómicas proporcionan garantías de atomicidad para operaciones individuales. Sin embargo, cuando se realizan múltiples operaciones atómicas de forma secuencial para completar una tarea lógica única, el conjunto de operaciones no es atómico. Esto crea una ventana temporal donde otros hilos pueden interferir, causando inconsistencias en los datos compartidos.
-
-### Problemas
-La violación de CON40-C puede resultar en:
-- **Actualizaciones perdidas**: Actualizaciones perdidas cuando múltiples hilos leen el mismo valor antes de escribir
-- **Condiciones de carrera**: El resultado depende del orden de ejecución de los hilos
-- **Inconsistencia de datos**: Inconsistencias en el estado de las variables compartidas
-- **Comportamiento no determinista**: Comportamiento no determinista que dificulta la depuración
-
-## Estructura del repositorio
+## Repository Structure
 
 ```
 examples_CON40-C/
 │
 ├── README.md
 │
-├── example-1/                     # Operaciones de toggle en atomic_bool
-│   ├── error.c                    # Código no conforme
-│   ├── solution.c                 # Solución con atomic_compare_exchange_weak
-│   ├── solution_2.c               # Solución con operador XOR
+├── example-1/                     # Toggle operations on atomic_bool
+│   ├── error.c                    # Non-compliant code
+│   ├── solution.c                 # Solution with atomic_compare_exchange_weak
+│   ├── solution_2.c               # Solution with XOR operator
 │   └── Makefile
 │
-└── example-2/                     # Operaciones de incremento en atomic_int
-    ├── error.c                    # Código no conforme
-    ├── solution.c                 # Solución con atomic_fetch_add
-    ├── solution_2.c               # Solución con operador ++
+└── example-2/                     # Increment operations on atomic_int
+    ├── error.c                    # Non-compliant code
+    ├── solution.c                 # Solution with atomic_fetch_add
+    ├── solution_2.c               # Solution with ++ operator
     └── Makefile
 ```
 
-## Requisitos del sistema
+## System Requirements
 
-- **Compilador**: GCC 4.9+ o Clang 3.1+ con soporte para C11
-- **Make**: GNU Make o compatible
-- **Sistema Operativo**: Linux/Unix, Windows (MinGW, MSYS2, WSL), macOS
+- **Compiler**: GCC 4.9+ or Clang 3.1+ with C11 support
+- **Make**: GNU Make or compatible
+- **Operating System**: Linux/Unix, Windows (MinGW, MSYS2, WSL), macOS
 
-## Instrucciones de compilación
+## Build Instructions
 
 ```bash
-# Compilar un ejemplo
-cd example-1/ o cd example-2/
+# Compile an example
+cd example-1/ or cd example-2/
 make
 
-# Compilar archivo específico
+# Compile specific file
 make error
 make solution
 make solution_2
 
-# Ejecutar todos los ejemplos
+# Run all examples
 make run
 
-# Limpiar archivos compilados
+# Clean compiled files
 make clean
 ```
 
