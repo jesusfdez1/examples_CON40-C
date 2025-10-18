@@ -1,4 +1,4 @@
-# CON40-C: Do not perform operations on shared atomic variables in isolation
+# CON40-C: Do not refer to an atomic variable twice in an expression
 
 
 Este repositorio contiene implementaciones prácticas de la regla de seguridad **CON40-C** del estándar CERT C Coding Standard. La regla establece que no se deben realizar operaciones sobre variables atómicas compartidas de forma aislada, ya que esto puede conducir a condiciones de carrera en entornos multihilo.
